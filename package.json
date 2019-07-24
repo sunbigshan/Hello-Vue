@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "hooks": {
-    "pre-commit": "yarn run lint"
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run link"
+    }
   },
   "scripts": {
     "serve": "webpack-dev-server --hot --config build/webpack.dev.js",
