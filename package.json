@@ -5,7 +5,7 @@
   "license": "MIT",
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run link"
+      "pre-commit": "yarn run lint"
     }
   },
   "scripts": {
