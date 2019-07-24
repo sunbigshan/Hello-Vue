@@ -6,16 +6,28 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: '../dist',
     compress: true,
     port: 9000,
+    overlay: {
+      errors: true,
+      warnings: true
+    }
   },
   output: {
-    filename: 'js/[name].[hash].js',
+    filename: 'js/[name].[hash:8].js',
     path: path.join(__dirname, "../dist"),
   },
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
       {
         test: /\.css$/,
         use: [

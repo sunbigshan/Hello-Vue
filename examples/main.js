@@ -1,7 +1,11 @@
-import Vue from 'vue';
-import App from './app.vue';
+import Vue from 'vue'
+import App from './app.vue'
 
-new Vue({
+const vm = new Vue({
   el: '#app',
-  render: h => h(App),
+  render: h => h(App)
+})
+
+Vue.use({
+  vm
 })

@@ -13,7 +13,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = merge(common, {
   mode: 'production',
   output: {
-    filename: 'js/[name].[contenthash].js', //contenthash 若文件内容无变化，则contenthash 名称不变
+    filename: 'js/[name].[chunkhash:8].js', //contenthash 若文件内容无变化，则contenthash 名称不变
     path: path.resolve(__dirname, '../dist')
   },
   optimization: {
@@ -73,7 +73,7 @@ module.exports = merge(common, {
             loader: 'file-loader',
             options: {
               limit: 5000,
-              name: 'imgs/[hash].[ext]'
+              name: 'imgs/[hash:8].[ext]'
             }
           },
           // 图片压缩
@@ -105,8 +105,8 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: 'css/[name].[hash].css',
-      chunkFilename: 'css/[id].[hash].css',
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[id].[contenthash:8].css',
     }),
   ],
 })
