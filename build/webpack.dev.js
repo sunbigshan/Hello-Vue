@@ -14,5 +14,37 @@ module.exports = merge(common, {
     filename: 'js/[name].[hash].js',
     path: path.join(__dirname, "../dist"),
   },
-  module: {},
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 5000,
+              name: 'imgs/[hash].[ext]'
+            }
+          },
+        ]
+      }
+    ]
+  },
 })
