@@ -10,6 +10,8 @@ const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 // 处理静态文件
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+// 处理 markdown 文件
+const markdownRender = require('markdown-it')();
 
 function resolve(dir) {
   return path.join(__dirname, '../', dir);
@@ -35,6 +37,54 @@ module.exports = {
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)$/,
         loader: 'url-loader'
+      },
+      // 处理 markdown 文件
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'vue-loader'
+          },
+          {
+            loader: 'vue-markdown-loader/lib/markdown-compiler',
+            options: {
+              raw: true,
+              preventExtract: true,
+              use: [
+                [
+                  require('markdown-it-container'), 'demo', {
+                    validate: params => {
+                      return params.trim().match(/^demo\s+(.*)$/);
+                    },
+                    render: (tokens, idx) => {
+                      if (tokens[idx].nesting === 1) {
+                        // 1.获取第一行的内容使用 markdown 渲染 html 作为组件的描述
+                        let demoInfo = tokens[idx].info
+                          .trim()
+                          .match(/^demo\s+(.*)$/);
+                        let description = demoInfo && demoInfo.length > 1
+                          ? demoInfo[1]
+                          : '';
+                        let descriptionHTML = description
+                          ? markdownRender.render(description)
+                          : '';
+                        // 2.获取代码块内的html和js代码
+                        let content = tokens[idx + 1].content;
+                        // 3.使用自定义开发组件【DemoBlock】来包裹内容并且渲染成案例和代码示例
+                        return `<demo-block>
+                          <div class="source" slot="source">${content}</div>
+                          ${descriptionHTML}
+                          <div class="highlight" slot="highlight">`;
+                      } else {
+                        return '</div></demo-block>\n';
+                      }
+                    }
+                  }
+                ]
+              ]
+            }
+          }
+        ]
       }
     ]
   },
