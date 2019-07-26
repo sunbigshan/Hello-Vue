@@ -9,7 +9,7 @@
 ```html
 <template>
   <div>
-    <v-input v-model="value"></v-input>
+    <v-input v-model="value" placeholder="Entry something..."></v-input>
     <p>{{ value }}</p>
   </div>
 </template>
@@ -18,7 +18,7 @@
 export default {
   data () {
     return {
-      value: '1'
+      value: ''
     }
   }
 }

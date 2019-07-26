@@ -3,17 +3,25 @@
     <input
       ref="input"
       type="text"
+      :class="inputClasses"
       :value="currentValue"
+      :placeholder="placeholder"
       @input="handleInput">
   </div>
 </template>
 
 <script>
+const prefixCls = 'v-input'
+
 export default {
   name: 'vInput',
   props: {
     value: {
       type: [String, Number],
+      default: ''
+    },
+    placeholder: {
+      type: String,
       default: ''
     }
   },
@@ -25,6 +33,13 @@ export default {
   data () {
     return {
       currentValue: this.value
+    }
+  },
+  computed: {
+    inputClasses () {
+      return [
+        `${prefixCls}`
+      ]
     }
   },
   methods: {
