@@ -6,15 +6,19 @@
       :class="inputClasses"
       :value="currentValue"
       :placeholder="placeholder"
-      @input="handleInput">
+      @input="handleInput"
+      @blur="handleBlur">
   </div>
 </template>
 
 <script>
+import Emitter from '@/mixins/emitter'
+
 const prefixCls = 'v-input'
 
 export default {
   name: 'vInput',
+  mixins: [Emitter],
   props: {
     value: {
       type: [String, Number],
@@ -32,7 +36,8 @@ export default {
   },
   data () {
     return {
-      currentValue: this.value
+      currentValue: this.value,
+      prefixCls: prefixCls
     }
   },
   computed: {
@@ -47,6 +52,10 @@ export default {
       const value = event.target.value
       this.setCurrentValue(value)
       this.$emit('input', value)
+      this.dispatch('vFormItem', 'on-form-change', value)
+    },
+    handleBlur () {
+      this.dispatch('vFormItem', 'on-form-blur', this.currentValue)
     },
     setCurrentValue (value) {
       if (this.currentValue === value) return

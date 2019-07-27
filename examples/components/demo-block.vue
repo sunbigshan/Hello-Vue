@@ -110,7 +110,7 @@ export default {
   display: inline-block;
   padding: 3px 7px;
   border-radius: 3px;
-  height: 18px;
+  height: 24px;
   line-height: 18px;
   font-family: Menlo, Monaco, Consolas, Courier, monospace;
   font-size: 14px;
