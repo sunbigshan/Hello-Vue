@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <label v-if="label">{{ label }}</label>
-    <div>
+  <div :class="prefixCls">
+    <label
+      v-if="label"
+      :style="labelStyles"
+      :class="[prefixCls + '-label']">{{ label }}</label>
+    <div :class="[prefixCls + '-content']" :style="contentStyles">
       <slot></slot>
       <div
         v-if="validateState === 'error'"
@@ -16,7 +19,7 @@
 import AsyncValidator from 'async-validator'
 import Emitter from '@/mixins/emitter'
 
-const prefixCls = 'ivu-form-item'
+const prefixCls = 'v-form-item'
 
 export default {
   name: 'vFormItem',
@@ -29,6 +32,9 @@ export default {
     },
     prop: {
       type: String
+    },
+    labelWidth: {
+      type: Number
     }
   },
   data () {
@@ -42,6 +48,22 @@ export default {
     // 从 Form 的 model 中动态获取当前表单组件的数据
     filedValue () {
       return this.form.model[this.prop]
+    },
+    labelStyles () {
+      const style = {}
+      const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.form.labelWidth
+      if (labelWidth || labelWidth === 0) {
+        style.width = `${labelWidth}px`
+      }
+      return style
+    },
+    contentStyles () {
+      const style = {}
+      const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.form.labelWidth
+      if (labelWidth || labelWidth === 0) {
+        style.marginLeft = `${labelWidth}px`
+      }
+      return style
     }
   },
   mounted () {

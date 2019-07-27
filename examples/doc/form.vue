@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form :model="formValidate" :rules="ruleValidate">
+    <v-form :model="formValidate" :rules="ruleValidate" :label-width="60">
       <v-form-item label="用户名" prop="name">
         <v-input v-model="formValidate.name"></v-input>
       </v-form-item>
@@ -22,10 +22,13 @@ export default {
       },
       ruleValidate: {
         name: [
+          { required: true, message: '用户名不能为空', trigger: 'change' },
           { required: true, message: '用户名不能为空', trigger: 'blur' }
         ],
         mail: [
-          { type: 'email', message: '邮箱格式不正确', trigger: 'change' }
+          { required: true, message: '邮箱不能为空', trigger: 'change' },
+          { required: true, message: '邮箱不能为空', trigger: 'blur' },
+          { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ]
       }
     }

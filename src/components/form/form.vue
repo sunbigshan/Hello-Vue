@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form class="v-form">
     <slot></slot>
   </form>
 </template>
@@ -18,6 +18,9 @@ export default {
     },
     rules: {
       type: Object
+    },
+    labelWidth: {
+      type: Number
     }
   },
   data () {

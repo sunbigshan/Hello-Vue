@@ -1,0 +1,33 @@
+@form-prefix-cls: ~"@{css-prefix}form";
+@form-item-prefix-cls: ~"@{form-prefix-cls}-item";
+
+.@{form-prefix-cls} {
+  .@{form-item-prefix-cls}-label {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: @font-size-small;
+    color: @text-color;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    box-sizing: border-box;
+  }
+}
+
+.@{form-item-prefix-cls} {
+  margin-bottom: 24px;
+  vertical-align: top;
+  &-content {
+    position: relative;
+    line-height: 32px;
+    font-size: @font-size-small;
+  }
+  &-error-tip{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    line-height: 1;
+    padding-top: 6px;
+    color: @error-color;
+  }
+}
