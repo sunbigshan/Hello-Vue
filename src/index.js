@@ -1,7 +1,10 @@
 import VInput from './components/input'
+import VForm from './components/form'
 
 const components = {
-  VInput
+  VInput,
+  VForm,
+  VFormItem: VForm.Item
 }
 
 const install = Vue => {
