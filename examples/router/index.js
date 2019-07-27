@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: '/form',
-    component: r => require.ensure([], () => r(require('../doc/form.vue')))
+    component: r => require.ensure([], () => r(require('../doc/form.md')))
   }
 ]
 

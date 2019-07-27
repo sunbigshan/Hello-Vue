@@ -70,6 +70,10 @@ export default {
     // 如果没有传入 prop，则无需校验，也就无需缓存
     if (this.prop) {
       this.dispatch('vForm', 'on-form-item-add', this)
+
+      // 设置初始值，以便在重置时恢复默认值
+      this.initialValue = this.filedValue
+
       this.setRules()
     }
   },
@@ -90,6 +94,12 @@ export default {
     getFilterRule (trigger) {
       const rules = this.getRules()
       return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1)
+    },
+    // 重置数据
+    resetField () {
+      this.validateState = ''
+      this.validateMessage = ''
+      this.form.model[this.prop] = this.initialValue
     },
     validate (trigger, callback = function () {}) {
       const rules = this.getFilterRule(trigger)
